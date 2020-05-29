@@ -131,41 +131,36 @@ gesis_download <- function(file_id,
         remDr$findElement(using = "partial link text", "Englis")$clickElement()
         Sys.sleep(delay)
         
-        # # download codebook
-        # if (try(unlist(remDr$findElement(using = "partial link text", "Codebook")$getElementAttribute('id')), silent = TRUE) == "") {
-        #     remDr$findElement(using = "partial link text", "Codebook")$clickElement()
-        # }
-        # dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old]
-        # wait <- TRUE
-        # tryCatch(
-        #     while(all.equal(stringr::str_detect(dd_new, "\\.part$"), logical(0))) {
-        #         Sys.sleep(1)
-        #         dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old]
-        #     }, error = function(e) 1 )
-        # while(any(stringr::str_detect(dd_new, "\\.crdownload$"))) {
-        #     Sys.sleep(1)
-        #     dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old]
-        # }
+        # download codebook, if available
+        if (try(unlist(remDr$findElement(using = "partial link text", "Codebook")$getElementAttribute('id')), silent = TRUE) == "") {
+            remDr$findElement(using = "partial link text", "Codebook")$clickElement()
+        }
+        Sys.sleep(delay)
+        
+        # get list of current default download directory contents (after codebook download)
+        dd_old_plus_cdbk <- list.files(default_dir)
         
         # download data
         remDr$findElement(using = "partial link text", "Datasets")$clickElement() # initiate data download
         remDr$findElement(using = "class", "data_purpose")$sendKeysToElement(list(use)) # select use
         
         remDr$findElement(using = "partial link text", "dta")$clickElement()
+        Sys.sleep(delay)
 
         # check that download has completed
-        dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old]
+        dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old_plus_cdbk]
         wait <- TRUE
         tryCatch(
             while(all.equal(stringr::str_detect(dd_new, "\\.part$"), logical(0))) {
                 Sys.sleep(1)
-                dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old]
+                dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old_plus_cdbk]
             }, error = function(e) 1 )
         while(any(stringr::str_detect(dd_new, "\\.crdownload$"))) {
             Sys.sleep(1)
-            dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old]
+            dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old_plus_cdbk]
         }
-
+        dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old]
+        
         # move to specified directory and convert to .RData
         dir.create(file.path(download_dir, item), showWarnings = FALSE)
         file.rename(from = file.path(default_dir, dd_new), to = file.path(download_dir, item, dd_new))
