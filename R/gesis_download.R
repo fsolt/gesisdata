@@ -66,7 +66,7 @@ gesis_download <- function(file_id,
     
     # detect login info
     if (reset) {
-        email <- password <- NULL
+        use <- email <- password <- NULL
     }
     
     if (is.null(email)) {
@@ -82,7 +82,7 @@ gesis_download <- function(file_id,
     }
     
     if (is.null(use)) {
-        gesis_password <- readline(prompt = "Please enter your GESIS use: \n")
+        gesis_use <- readline(prompt = "Please enter your GESIS use: \n")
         options("gesis_use" = gesis_use)
         use <- getOption("gesis_use")
     }
