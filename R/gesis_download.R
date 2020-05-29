@@ -1,23 +1,23 @@
-#' Download datasets from the GESIS Data Archive
+#' Download datasets from the GESIS data archive
 #'
 #' \code{gesis_download} provides a programmatic and reproducible means to download datasets 
-#'   from the GESIS Data Archive
+#'   from the GESIS data archive
 #'
 #' @param file_id The unique identifier (or optionally a vector of these identifiers).
 #'  for the dataset(s) to be downloaded (see details).
 #' @param email,password Your GESIS email and password (see details).
-#' @param use The number of a 'use of data' you have registered with the UK Data Service (see details).
-#' @param reset If TRUE, you will be asked to re-enter your organization, username, and password.
+#' @param use The number of a 'use of data' (see details).
+#' @param reset If TRUE, you will be asked to re-enter your username, password, and use.
 #' @param download_dir The directory (relative to your working directory) to
-#'   which files from the GESIS Data Archive will be downloaded.
+#'   which files from the GESIS data archive will be downloaded.
 #' @param msg If TRUE, outputs a message showing which data set is being downloaded.
 #' @param convert If TRUE, converts downloaded file(s) to .RData format.
-#' @param delay If the speed of your connection to the GESIS Data Archive is particularly slow, 
+#' @param delay If the speed of your connection to the GESIS data archive is particularly slow, 
 #'   \code{gesis_download} may encounter problems.  Increasing the \code{delay} parameter
 #'   may help.
 #'
 #' @details 
-#'  To avoid requiring others to edit your scripts to insert their own organization, email,  
+#'  To avoid requiring others to edit your scripts to insert their own email, 
 #'  password, and use or to force them to do so interactively, the default is set to fetch 
 #'  this information from the user's .Rprofile.  Before running \code{gesis_download}, 
 #'  then, you should be sure to add these options to your .Rprofile substituting your 
@@ -25,7 +25,8 @@
 #'
 #'  \code{
 #'   options("gesis_email" = "juanita-herrara@uppermidwest.edu",
-#'           "gesis_password" = "password123!")
+#'           "gesis_password" = "password123!",
+#'           "gesis_use" = 5)
 #'  }
 #'   In addition to accepting the terms of use, you need to input a purpose for
 #'   downloading a data set. The options are as follows:
@@ -42,7 +43,7 @@
 #'
 #' @examples
 #' \dontrun{
-#'  gesis_download(file_id = c())
+#'  gesis_download(file_id = c("ZA6644", "ZA76900"))
 #' }
 #' 
 #' @import RSelenium
@@ -56,7 +57,7 @@
 gesis_download <- function(file_id, 
                           email = getOption("gesis_email"),
                           password = getOption("gesis_password"),
-                          use = 5,
+                          use = getOption("gesis_use"),
                           reset = FALSE,
                           download_dir = "gesis_data",
                           msg = TRUE,
@@ -78,6 +79,12 @@ gesis_download <- function(file_id,
         gesis_password <- readline(prompt = "Please enter your GESIS password: \n")
         options("gesis_password" = gesis_password)
         password <- getOption("gesis_password")
+    }
+    
+    if (is.null(use)) {
+        gesis_password <- readline(prompt = "Please enter your GESIS use: \n")
+        options("gesis_use" = gesis_use)
+        use <- getOption("gesis_use")
     }
     
     use <- dplyr::case_when(
@@ -148,26 +155,37 @@ gesis_download <- function(file_id,
         Sys.sleep(delay)
 
         # check that download has completed
-        dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old_plus_cdbk]
+        dd_new <- setdiff(list.files(default_dir), dd_old_plus_cdbk)
         wait <- TRUE
         tryCatch(
             while(all.equal(stringr::str_detect(dd_new, "\\.part$"), logical(0))) {
                 Sys.sleep(1)
-                dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old_plus_cdbk]
+                dd_new <- setdiff(list.files(default_dir), dd_old_plus_cdbk)
             }, error = function(e) 1 )
         while(any(stringr::str_detect(dd_new, "\\.crdownload$"))) {
             Sys.sleep(1)
-            dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old_plus_cdbk]
+            dd_new <- setdiff(list.files(default_dir), dd_old_plus_cdbk)
         }
-        dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old]
+        dd_new <- setdiff(list.files(default_dir), dd_old)
+        dd_cdbk <- setdiff(dd_old_plus_cdbk, dd_old)
+        dd_data <- setdiff(dd_new, dd_cdbk)
         
-        # move to specified directory and convert to .RData
-        dir.create(file.path(download_dir, item), showWarnings = FALSE)
-        file.rename(from = file.path(default_dir, dd_new), to = file.path(download_dir, item, dd_new))
-        unlink(file.path(default_dir, dd_new))
+        # move to specified directory
+        if (stringr::str_detect(dd_data, "\\.zip$")) { # unzip data if needed
+            dld_old <- list.files(download_dir)
+            if (!dir.exists(file.path(download_dir, item))) dir.create(file.path(download_dir, item), recursive = TRUE)
+            unzip(file.path(default_dir, dd_data), exdir = file.path(download_dir, item))
+            unlink(file.path(default_dir, dd_data))
+            file.rename(from = file.path(default_dir, dd_cdbk), to = file.path(download_dir, item, dd_cdbk))
+        } else {
+            dir.create(file.path(download_dir, item), showWarnings = FALSE)
+            file.rename(from = file.path(default_dir, dd_new), to = file.path(download_dir, item, dd_new))
+            unlink(file.path(default_dir, dd_new))
+        }
         
+        # convert to .RData
         data_files <- list.files(path = file.path(download_dir, item), recursive = TRUE) %>%
-            str_subset("\\.dta")
+            stringr::str_subset("\\.dta$")
         if (convert == TRUE) {
             for (i in seq_along(data_files)) {
                 data_file <- data_files[i]
