@@ -21,6 +21,6 @@ remotes::install_github("fsolt/gesisdata")
 
 For more details, check out [the vignette](https://cran.r-project.org/package=gesisdata/vignettes/gesisdata-vignette.html).
 
-Please recall that by using GESIS, you accept its [Terms and Conditions](https://ropercenter.cornell.edu/CFIDE/cf/action/registration/termsAndConditions.cfm).
+Please recall that by using the GESIS Data Archive, you accept its terms and conditions.
 
 
