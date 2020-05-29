@@ -2,13 +2,13 @@ Package: gesisdata
 Type: Package
 Title: Reproducible Data Retrieval from the GESIS Data Archive
 Version: 0.1.0
-Date: 2020-05-28
+Date: 2020-05-29
 Authors@R: c(
     person("Frederick", "Solt", email = "frederick-solt@uiowa.edu", role = c("aut", "cre")))
 URL: https://github.com/fsolt/gesisdata
 BugReports: https://github.com/fsolt/gesisdata/issues
 Description: Reproducible, programmatic retrieval of datasets from the
-    GESIS data archive.  The GESIS data archive <https://search.gesis.org>  
+    GESIS Data Archive.  The GESIS Data Archive <https://search.gesis.org>  
     makes available thousands of invaluable datasets, but researchers using
     these datasets are caught in a bind.  The archive's terms and conditions
     bar dissemination of downloaded datasets to third parties, but to ensure 
@@ -29,4 +29,5 @@ Imports:
   stringr,
   tools,
   utils
+Encoding: UTF-8
 RoxygenNote: 7.0.0
