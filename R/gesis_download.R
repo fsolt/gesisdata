@@ -43,7 +43,7 @@
 #'
 #' @examples
 #' \dontrun{
-#'  gesis_download(file_id = c("ZA6644", "ZA76900"))
+#'  gesis_download(file_id = c("ZA6644", "ZA6900"))
 #' }
 #' 
 #' @import RSelenium
