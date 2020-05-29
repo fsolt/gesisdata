@@ -27,6 +27,7 @@ Imports:
   rio,
   RSelenium (>= 1.7.1),
   stringr,
+  dplyr,
   tools,
   utils
 Encoding: UTF-8
