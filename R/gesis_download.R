@@ -52,6 +52,7 @@
 #' @importFrom rio convert
 #' @importFrom tools file_path_sans_ext
 #' @importFrom utils unzip
+#' @importFrom dplyr case_when
 #' 
 #' @export
 gesis_download <- function(file_id, 

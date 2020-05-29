@@ -2,6 +2,7 @@
 
 export(gesis_download)
 import(RSelenium)
+importFrom(dplyr,case_when)
 importFrom(magrittr,'%>%')
 importFrom(rio,convert)
 importFrom(stringr,str_detect)
