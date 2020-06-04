@@ -7,3 +7,8 @@
 0 errors | 0 warnings | 0 notes
 
 ## New submission
+
+### Resubmission
+
+- backticks have been deleted in package description
+- \dontrun{} is required given missing API keys; see @details
