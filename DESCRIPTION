@@ -13,7 +13,7 @@ Description: Reproducible, programmatic retrieval of datasets from the
     these datasets are caught in a bind.  The archive's terms and conditions
     bar dissemination of downloaded datasets to third parties, but to ensure 
     that one's work can be reproduced, assessed, and built upon by others, one
-    must provide access to the raw data one has employed.  The `gesisdata`
+    must provide access to the raw data one has employed.  The gesisdata
     package cuts this knot by providing registered users with programmatic,
     reproducible access to GESIS datasets from within R.
 License: MIT + file LICENSE
