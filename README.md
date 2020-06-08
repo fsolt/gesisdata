@@ -19,7 +19,7 @@ if (!require(remotes)) install.packages("remotes")
 remotes::install_github("fsolt/gesisdata")
 ```
 
-For more details, check out [the vignette](https://cran.r-project.org/package=gesisdata/vignettes/gesisdata-vignette.html).
+For more details, check out [the vignette](https://fsolt.org/gesisdata/articles/gesisdata-vignette.html).
 
 Please recall that by using the GESIS Data Archive, you accept its terms and conditions.
 
