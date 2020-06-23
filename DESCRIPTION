@@ -2,7 +2,7 @@ Package: gesisdata
 Type: Package
 Title: Reproducible Data Retrieval from the GESIS Data Archive
 Version: 0.1.0
-Date: 2020-05-29
+Date: 2020-06-23
 Authors@R: c(
     person("Frederick", "Solt", email = "frederick-solt@uiowa.edu", role = c("aut", "cre", "cph")))
 URL: https://github.com/fsolt/gesisdata
