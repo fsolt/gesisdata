@@ -40,17 +40,19 @@ Datasets are specified using the `file_id` argument.  GESIS uses a unique number
 To reproducibly download this dataset:
 
 ```{r eval=FALSE}
-gesis_download(file_id = "ZA5100")
+gesis_download(file_id = "ZA5100",
+               download_dir = tempdir()) # remember to specify a directory for your download
 ```
 
 Multiple datasets may be downloaded from the same research area in a single command by passing a vector of ids to `file_id`.  The following downloads the Politbarometer cumulative file along with Eurobarometer 84.4 and the ISSP Role of Government V:
 
 ```{r eval=FALSE}
-gesis_download(file_id = c("ZA5100", "ZA6644", "ZA6900"))
+gesis_download(file_id = c("ZA5100", "ZA6644", "ZA6900"),
+               download_dir = tempdir()) # remember to specify a directory for your download
 ```
 
 After the needed datasets (and, if available, their codebooks) are downloaded, the datasets are by default converted to `.RData` format and ready to be loaded into R using `load()` or `rio::import()`.
 
 ```{r eval=FALSE}
-politbarometer <- rio::import("gesis_data/ZA5100/ZA5100_v2-0-0.RData")
+politbarometer <- rio::import(file.path(tempdir(), "ZA5100", "ZA55100_v2-0-0.RData"))
 ```

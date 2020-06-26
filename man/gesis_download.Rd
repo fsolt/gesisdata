@@ -69,7 +69,8 @@ To avoid requiring others to edit your scripts to insert their own email,
 }
 \examples{
 \dontrun{
- gesis_download(file_id = c("ZA6644", "ZA6900"))
+ gesis_download(file_id = c("ZA6644", "ZA6900"),
+                download_dir = tempdir()) # remember to specify a directory for your download
 }
 
 }

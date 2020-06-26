@@ -18,3 +18,7 @@
 - 'gesisdata', 'R' written in straight single quotes in DESCRIPTION file
 - copyright holder [cph] added to Authors@R field
 - substituted pkgdown vignette URL for CRAN vignette URL in README.md
+
+## Third Resubmission
+
+- used tempdir() as download directory in examples
