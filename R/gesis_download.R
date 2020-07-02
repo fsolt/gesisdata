@@ -141,8 +141,8 @@ gesis_download <- function(file_id,
         Sys.sleep(delay)
         
         # download codebook, if available
-        if (try(unlist(remDr$findElement(using = "partial link text", "Codebook")$getElementAttribute('id')), silent = TRUE) == "") {
-            remDr$findElement(using = "partial link text", "Codebook")$clickElement()
+        if (try(unlist(remDr$findElement(using = "link text", "Codebook")$getElementAttribute('id')), silent = TRUE) == "") {
+            remDr$findElement(using = "link text", "Codebook")$clickElement()
         }
         Sys.sleep(delay)
         
