@@ -191,10 +191,17 @@ gesis_download <- function(file_id,
         if (convert == TRUE) {
             for (i in seq_along(data_files)) {
                 data_file <- data_files[i]
-                rio::convert(file.path(download_dir, item, data_file),
-                             paste0(tools::file_path_sans_ext(file.path(download_dir,
-                                                                        item,
-                                                                        basename(data_file))), ".RData"))
+                tryCatch(rio::convert(file.path(download_dir, item, data_file),
+                                      tools::file_path_sans_ext(file.path(download_dir,
+                                                                          item,
+                                                                          basename(data_file))), ".RData"),
+                         error = function(c) suppressWarnings(
+                             foreign::read.dta(file.path(download_dir, item, data_file),
+                                               convert.factors = FALSE) %>%
+                                 rio::export(tools::file_path_sans_ext(file.path(download_dir,
+                                                                                 item,
+                                                                                 basename(data_file))), ".RData"))
+                )
             }
         }
     }
