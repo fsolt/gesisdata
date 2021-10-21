@@ -137,7 +137,9 @@ gesis_download <- function(file_id,
         Sys.sleep(delay)
         
         # switch to English
-        remDr$findElement(using = "partial link text", "Englis")$clickElement()
+        if (try(unlist(remDr$findElement(using = "partial link text", "Englis")$getElementAttribute('id')), silent = TRUE) =="") {
+            remDr$findElement(using = "partial link text", "Englis")$clickElement()
+        }
         Sys.sleep(delay)
         
         # download codebook, if available
