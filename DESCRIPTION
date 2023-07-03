@@ -5,7 +5,7 @@ Version: 0.1.0.9000
 Date: 2020-06-23
 Authors@R: c(
     person("Frederick", "Solt", email = "frederick-solt@uiowa.edu", role = c("aut", "cre", "cph")))
-URL: https://github.com/fsolt/gesisdata
+URL: https://github.com/fsolt/gesisdata, http://fsolt.org/gesisdata/
 BugReports: https://github.com/fsolt/gesisdata/issues
 Description: Reproducible, programmatic retrieval of datasets from the
     GESIS Data Archive.  The GESIS Data Archive <https://search.gesis.org>  
