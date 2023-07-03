@@ -3,6 +3,7 @@
 export(gesis_download)
 import(RSelenium)
 importFrom(dplyr,case_when)
+importFrom(foreign,read.dta)
 importFrom(magrittr,'%>%')
 importFrom(netstat,free_port)
 importFrom(rio,export)

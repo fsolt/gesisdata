@@ -25,6 +25,7 @@ Suggests:
 VignetteBuilder: knitr
 Imports:
   dplyr,
+  foreign,
   magrittr,
   netstat,
   rio,

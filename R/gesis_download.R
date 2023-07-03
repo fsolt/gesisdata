@@ -48,13 +48,14 @@
 #' }
 #' 
 #' @import RSelenium
-#' @importFrom stringr str_detect str_subset
+#' @importFrom dplyr case_when
+#' @importFrom foreign read.dta
 #' @importFrom magrittr '%>%'
+#' @importFrom netstat free_port
 #' @importFrom rio import export
+#' @importFrom stringr str_detect str_subset
 #' @importFrom tools file_path_sans_ext
 #' @importFrom utils unzip
-#' @importFrom dplyr case_when
-#' @importFrom netstat free_port
 #' 
 #' @export
 gesis_download <- function(file_id, 
