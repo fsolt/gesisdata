@@ -54,6 +54,7 @@
 #' @importFrom tools file_path_sans_ext
 #' @importFrom utils unzip
 #' @importFrom dplyr case_when
+#' @importFrom netstat free_port
 #' 
 #' @export
 gesis_download <- function(file_id, 
@@ -99,7 +100,7 @@ gesis_download <- function(file_id,
         TRUE ~ "for scientific research (incl. doctorate)"
     )
     
-    # build path to chrome's default download directory
+    # build path to firefox's default download directory
     if (Sys.info()[["sysname"]]=="Linux") {
         default_dir <- file.path("home", Sys.info()[["user"]], "Downloads")
     } else {
@@ -111,7 +112,10 @@ gesis_download <- function(file_id,
     
     # initialize driver
     if(msg) message("Initializing RSelenium driver")
-    rD <- rsDriver(browser = "chrome", verbose = TRUE)
+    rD <- rsDriver(browser="firefox", 
+                   port = free_port(),
+                   verbose = FALSE,
+                   chromever = NULL)
     remDr <- rD[["client"]]
     
     # sign in

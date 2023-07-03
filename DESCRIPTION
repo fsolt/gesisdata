@@ -2,9 +2,10 @@ Package: gesisdata
 Type: Package
 Title: Reproducible Data Retrieval from the GESIS Data Archive
 Version: 0.1.1.9000
-Date: 2020-06-23
+Date: 2023-07-03
 Authors@R: c(
-    person("Frederick", "Solt", email = "frederick-solt@uiowa.edu", role = c("aut", "cre", "cph")))
+    person("Frederick", "Solt", email = "frederick-solt@uiowa.edu", role = c("aut", "cre", "cph")),
+    person("Dave", "Peterson", email = "daveamp@iastate.edu", role = c("ctb")))
 URL: https://github.com/fsolt/gesisdata, http://fsolt.org/gesisdata/
 BugReports: https://github.com/fsolt/gesisdata/issues
 Description: Reproducible, programmatic retrieval of datasets from the
@@ -23,12 +24,13 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Imports:
+  dplyr,
   magrittr,
+  netstat,
   rio,
   RSelenium (>= 1.7.1),
   stringr,
-  dplyr,
   tools,
   utils
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
