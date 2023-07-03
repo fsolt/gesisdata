@@ -1,4 +1,8 @@
-[![CRAN version](http://www.r-pkg.org/badges/version/gesisdata)](https://cran.r-project.org/package=gesisdata) ![](http://cranlogs.r-pkg.org/badges/grand-total/gesisdata) [![Travis-CI Build Status](https://travis-ci.org/fsolt/gesisdata.svg?branch=master)](https://travis-ci.org/fsolt/gesisdata)
+<!-- badges: start -->
+[![CRAN version](http://www.r-pkg.org/badges/version/gesisdata)](https://cran.r-project.org/package=gesisdata) ![](http://cranlogs.r-pkg.org/badges/grand-total/gesisdata)
+[![R-CMD-check](https://github.com/fsolt/gesisdata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/fsolt/gesisdata/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 ------------------------------------------------------------------------
 
 gesisdata
