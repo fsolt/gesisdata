@@ -6,7 +6,7 @@ Date: 2023-07-03
 Authors@R: c(
     person("Frederick", "Solt", email = "frederick-solt@uiowa.edu", role = c("aut", "cre", "cph")),
     person("Dave", "Peterson", email = "daveamp@iastate.edu", role = c("ctb")))
-URL: https://github.com/fsolt/gesisdata, http://fsolt.org/gesisdata/
+URL: https://github.com/fsolt/gesisdata, https://fsolt.org/gesisdata/
 BugReports: https://github.com/fsolt/gesisdata/issues
 Description: Reproducible, programmatic retrieval of datasets from the
     GESIS Data Archive.  The GESIS Data Archive <https://search.gesis.org>  
